@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0">
+	<title>Lotto Random</title>
+	<style>
+		html{ font-size:62.5%; scrollbar-width:thin; --max:30rem; }
+		@media(max-width: 359px){ html { font-size:2.7777777778vw; } }
+		body { margin:0; padding:2.4rem; font: normal 400 1.4rem/1.5 "Helvetica Neue", Arial, sans-serif; }
+		.set { display: flex; border:1px solid #000; max-width:var(--max); margin:0 auto; box-sizing:border-box; }
+		.set button, .set select { flex:1; padding:0; border:0; background:transparent; font:inherit; }
+		.set button { border-left:1px solid #000; }
+		.result { display: flex; flex-direction: column; counter-reset:num; gap:0.5rem; max-width:var(--max); margin:2rem auto 0; padding:0 1rem; box-sizing:border-box; }
+		.result div { display: flex; flex-wrap: wrap; gap:1rem; }
+		.result div > span { flex: 1; text-align:center; }
+		.result div::before { content:counter(num); counter-increment:num; display:inline-block; padding:0; width:1.8em; background:#000; color:#fff; text-align:center; }
+	</style>
+</head>
+<body>
+	<div class="set">
+		<select id="loop">
+			<option value="1">01</option>
+			<option value="2">02</option>
+			<option value="3">03</option>
+			<option value="4">04</option>
+			<option value="5" selected>05</option>
+			<option value="6">06</option>
+			<option value="7">07</option>
+			<option value="8">08</option>
+			<option value="9">09</option>
+			<option value="10">10</option>
+		</select>
+		<button type="button" class="lucky">LUCKY</button>
+		<button type="button" class="reset">RESET</button>
+	</div>
+	<div class="result"></div>
+
+	<script>
+		function getRandom(min, max) {
+			return Math.floor(Math.random() * (max - min + 1)) + min;
+		}
+		function getLucky(arr=[], lucky=[]) {
+			const count = lucky.length;
+			if(count >= 6) return lucky;
+			const idx = getRandom(1, arr.length);
+			lucky.push(arr[idx-1]);
+			arr.splice(idx-1, 1);
+
+			if(count+1 >= 6) {
+				return lucky;
+			} else {
+				return getLucky(arr, lucky);
+			}
+		};
+
+		function getLotto() {
+			const span = document.createElement("div");
+			let loop = parseFloat(document.querySelector("#loop").value || "1");
+			let el;
+			for(; loop>0; loop--) {
+				el = span.cloneNode();
+				el.innerHTML = "<span>" + getLucky([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45]).sort((a, b) => a - b).join("</span><span>") + "</span>";
+				document.querySelector(".result").appendChild(el);
+			}
+		}
+		function setLottoReset() {
+			document.querySelector(".result").innerHTML = "";
+		}
+		document.querySelector(".lucky").addEventListener("click", getLotto);
+		document.querySelector(".reset").addEventListener("click", setLottoReset);
+	</script>
+</body>
+</html>
