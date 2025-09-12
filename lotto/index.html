@@ -5,16 +5,15 @@
 	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0">
 	<title>Lotto Random</title>
 	<style>
-		html{ font-size:62.5%; scrollbar-width:thin; --max:30rem; }
+		html{ font-size:62.5%; scrollbar-width:thin; --max:50rem; --gap:1rem; --rad:1rem; --line: #ddd; }
 		@media(max-width: 359px){ html { font-size:2.7777777778vw; } }
 		body { margin:0; padding:2.4rem; font: normal 400 1.4rem/1.5 "Helvetica Neue", Arial, sans-serif; }
-		.set { display: flex; border:1px solid #000; max-width:var(--max); margin:0 auto; box-sizing:border-box; }
-		.set button, .set select { flex:1; padding:0; border:0; background:transparent; font:inherit; }
-		.set button { border-left:1px solid #000; }
-		.result { display: flex; flex-direction: column; counter-reset:num; gap:0.5rem; max-width:var(--max); margin:2rem auto 0; padding:0 1rem; box-sizing:border-box; }
-		.result div { display: flex; flex-wrap: wrap; gap:1rem; }
-		.result div > span { flex: 1; text-align:center; }
-		.result div::before { content:counter(num); counter-increment:num; display:inline-block; padding:0; width:1.8em; background:#000; color:#fff; text-align:center; }
+		.set { position: sticky; z-index: 10; top: 2.4rem; display: flex; gap:var(--gap); max-width:var(--max); margin:0 auto; box-sizing:border-box; }
+		.set button, .set select { flex:1; padding:0; border:0; height: 3rem; background:transparent; font:inherit; border:1px solid var(--line); border-radius:999px;  }
+		.result { display: flex; flex-wrap: wrap; width:fit-content; counter-reset:num; gap:var(--gap); margin:2rem auto 0; box-sizing:border-box; }
+		.result div { display: flex; flex-wrap: wrap; gap:var(--gap); align-items: center; padding: 2rem 1.8rem; border:1px solid var(--line); border-radius:var(--rad); }
+		.result div > span { flex: 1; display: flex; align-items: center; justify-content: center; width: 3.4rem; height: 3.4rem; font-size: 1.4em; font-weight: 700; text-align:center; background-color: #000; border-radius: 100%; color: #fff; }
+		.result div::before { content:'#'counter(num); counter-increment:num; }
 	</style>
 </head>
 <body>
